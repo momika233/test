@@ -4,9 +4,7 @@ cd /tmp
 
 apt install git make cmake gcc automake libtool autoconf -y
 
-git clone https://github.com/momika233/xmrig.git
-
-cd scripts && ./build_deps.sh && cd ../build
+git clone https://github.com/momika233/xmrig.git && cd xmrig && cd scripts && ./build_deps.sh && cd ../build
 
 cmake .. -DXMRIG_DEPS=scripts/deps
 
